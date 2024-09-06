@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:intern_assignment/Data/posts_data.dart';
 import 'package:intern_assignment/models/posts_model.dart';
 
-Future<void> fetchImage() async {
+Future<void> fetchImage(BuildContext context) async {
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('Posts');
 

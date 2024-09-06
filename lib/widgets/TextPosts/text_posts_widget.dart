@@ -28,7 +28,13 @@ class GetTextPostsWidgetUi extends StatelessWidget {
                 PostsData.textPostsData?[index].desc ?? "desc",
                 style:
                     const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    String baseUrl =
+                        "https://flutter-intern-web.onrender.com/text/${PostsData.textPostsData![index].name}";
+                  },
+                  child: Text("Share"))
             ],
           ),
         ));

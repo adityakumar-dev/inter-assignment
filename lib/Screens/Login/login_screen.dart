@@ -42,7 +42,7 @@ class GetWidget extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () async {
-                await Authservice().anoymouseLogin(context);
+                await Authservice().anonymousLogin(context);
               },
               child: const Text("Login as Guest")),
           const SizedBox(

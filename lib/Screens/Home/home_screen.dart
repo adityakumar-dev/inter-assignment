@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intern_assignment/Screens/Image_Post/image_post_screen.dart';
 import 'package:intern_assignment/Screens/Text_Post/text_post_screen.dart';
 import 'package:intern_assignment/Screens/Video_Post/video_post_screen.dart';
@@ -42,6 +43,11 @@ class _GetWidgetState extends State<GetWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              context.push('/text');
+            },
+            icon: Icon(Icons.post_add)),
         title: Text(
           appBarText,
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),

@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:intern_assignment/Screens/Home/home_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intern_assignment/services/Auth/auth_service.dart';
-import 'package:intern_assignment/Screens/Login/login_screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Authservice().authStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const LoginScreen();
-        }
-        if (snapshot.hasData) {
-          return const HomeScreen();
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+  State createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Authservice().authStream.listen((user) {
+        if (user != null) {
+          context.go('/home');
         } else {
-          return const LoginScreen();
+          context.go('/login');
         }
-      },
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

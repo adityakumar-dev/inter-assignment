@@ -12,7 +12,7 @@ class ImagePostScreen extends StatefulWidget {
 
 class _ImagePostScreenState extends State<ImagePostScreen> {
   Future<void> _fetchImagePosts() async {
-    await fetchImage();
+    await fetchImage(context);
     if (PostsData.imagePostsData == null) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()

@@ -1,26 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intern_assignment/Data/posts_data.dart';
+import 'package:intern_assignment/models/posts_model.dart';
+import 'package:intern_assignment/services/fetchTextPosts/fetch_text_posts.dart';
 
-class DynamicLinkScreen extends StatefulWidget {
-  const DynamicLinkScreen({super.key});
+class AppLinkTextPosts extends StatefulWidget {
+  final String? name;
+
+  const AppLinkTextPosts({Key? key, this.name}) : super(key: key);
 
   @override
-  State<DynamicLinkScreen> createState() => _DynamicLinkScreenState();
+  State<AppLinkTextPosts> createState() => _AppLinkTextPostsState();
 }
 
-class _DynamicLinkScreenState extends State<DynamicLinkScreen> {
+class _AppLinkTextPostsState extends State<AppLinkTextPosts> {
+  bool erro = false;
+  bool show = false;
+  String? desc;
+  String errors = '';
+
+  Future<void> fetchData() async {
+    try {
+      await fetchText(context);
+      TextPost textPost = PostsData.textPostsData!.firstWhere((element) {
+        return element.name.trim() == widget.name!.trim();
+      }, orElse: () => TextPost(name: '', desc: ''));
+
+      setState(() {
+        show = true;
+        desc = textPost.desc;
+      });
+    } catch (e) {
+      setState(() {
+        errors = e.toString();
+        erro = true;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.name != null) {
+        fetchData();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("App Link Text Posts"),
+        leading: IconButton(
+          onPressed: () => context.go('/home'),
+          icon: const Icon(Icons.home),
+        ),
+        title: const Text("App Link Text Posts"),
         centerTitle: true,
       ),
-      body: Container(
-        alignment: Alignment.center,
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [Text("Text posts will show here")],
+          children: [
+            if (erro)
+              const Text('Error Post Not Found',
+                  style: TextStyle(color: Colors.red)),
+            if (!show && !erro) const CircularProgressIndicator(),
+            if (show)
+              Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade100,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Text(widget.name ?? "name",
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 24)),
+                    Text(
+                      desc ?? "desc",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+          ],
         ),
       ),
     );

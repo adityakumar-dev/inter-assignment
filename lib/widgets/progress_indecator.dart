@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-Future<void> progressIndicator(context) async {
-  return showDialog(
+progressIndicator(BuildContext context) {
+  showDialog(
     context: context,
-    builder: (context) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return const Center(child: CircularProgressIndicator());
     },
   );
 }
