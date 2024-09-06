@@ -77,7 +77,6 @@ class _AppLinkVideoPostsState extends State<AppLinkVideoPosts> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchData();
@@ -89,7 +88,12 @@ class _AppLinkVideoPostsState extends State<AppLinkVideoPosts> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.go('/home'),
+          onPressed: () {
+            setState(() {
+              PostsData.videoPostsData = null;
+            });
+            context.go('/home');
+          },
           icon: const Icon(Icons.home),
         ),
         title: const Text("App Link Video Posts"),

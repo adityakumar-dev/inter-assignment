@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intern_assignment/Data/posts_data.dart';
+import 'package:share_plus/share_plus.dart';
 
 class GetTextPostsWidgetUi extends StatelessWidget {
   final index;
@@ -30,11 +31,15 @@ class GetTextPostsWidgetUi extends StatelessWidget {
                     const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
               ),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    print(PostsData.textPostsData![index].name);
                     String baseUrl =
-                        "https://flutter-intern-web.onrender.com/text/${PostsData.textPostsData![index].name}";
+                        "https://flutter-intern-web.onrender.com/text?name=${Uri.encodeComponent(PostsData.textPostsData![index].name.trim())}";
+                    Share.share(
+                        "Click to open intern_assignment application : $baseUrl");
+                    print(baseUrl);
                   },
-                  child: Text("Share"))
+                  child: const Icon(Icons.share))
             ],
           ),
         ));

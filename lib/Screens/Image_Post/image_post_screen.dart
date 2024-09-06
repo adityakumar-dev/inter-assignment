@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intern_assignment/Data/posts_data.dart';
 import 'package:intern_assignment/services/fetchImagePosts/fetch_image_posts.dart';
+import 'package:intern_assignment/widgets/ImagePosts/image_posts_widget.dart';
 import 'package:intern_assignment/widgets/get_data_fun.dart';
 
 class ImagePostScreen extends StatefulWidget {
@@ -37,38 +38,6 @@ class _ImagePostScreenState extends State<ImagePostScreen> {
                 (index) => GetTextPostsUi(index: index),
               ),
             ),
-    );
-  }
-}
-
-class GetTextPostsUi extends StatelessWidget {
-  final int index;
-  const GetTextPostsUi({
-    super.key,
-    required this.index,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(color: Colors.white),
-      child: Column(
-        children: [
-          Text(
-            PostsData.imagePostsData![index].name,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          PostsData.imagePostsData![index].url.isNotEmpty
-              ? Image.network(PostsData.imagePostsData![index].url)
-              : const CircularProgressIndicator(),
-        ],
-      ),
     );
   }
 }

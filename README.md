@@ -1,19 +1,67 @@
-# intern_assignment
+# Deep Linking with `go_route` and Firebase - Flutter Project
 
-A new Flutter project.
+This Flutter project demonstrates the implementation of deep linking using the `go_route` package, along with Firebase integration for managing posts (text, video, and image).
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+Ensure you have the following installed:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter SDK
+- Firebase CLI
+- A linked Firebase project with Firestore enabled
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# intern-assignment
-# intern-assignment
-# inter-assignment
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+
+    ```bash
+    cd <project-directory>
+    ```
+3. Install the necessary dependencies:
+
+    ```bash 
+    flutter pub get
+    ```
+##
+### Firebase Setup
+1. Configure Firebase for your Flutter project:
+
+    Run the FlutterFire CLI to configure Firebase:
+        Firebase Setup
+    ```bash 
+    dart pub global activate flutterfire_cli
+    flutterfire configure
+    ```
+2. Link your project to Firebase and set up Firestore:
+
+    Ensure you have a Firestore database with the following structure:
+
+
+    ```
+    Posts
+    ├── Text Posts
+    │   ├── name: string
+    │   └── desc: string
+    ├── Video Posts
+    │   ├── name: string
+    │   └── url: string
+    └── Image Posts
+        ├── name: string
+        └── url: string
+    ```
+##
+### Running the App
+Once the setup is complete, you can run the app on an emulator or a physical device:
+```bash
+    flutter run
+```
+
+##
+### Thanks For Visiting

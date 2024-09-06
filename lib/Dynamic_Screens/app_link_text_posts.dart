@@ -26,10 +26,18 @@ class _AppLinkTextPostsState extends State<AppLinkTextPosts> {
         return element.name.trim() == widget.name!.trim();
       }, orElse: () => TextPost(name: '', desc: ''));
 
-      setState(() {
-        show = true;
-        desc = textPost.desc;
-      });
+      if (textPost.name.isEmpty) {
+        setState(() {
+          erro = true;
+          errors = "Post not found";
+        });
+      } else {
+        // If the post was found, show the post data
+        setState(() {
+          show = true;
+          desc = textPost.desc;
+        });
+      }
     } catch (e) {
       setState(() {
         errors = e.toString();
@@ -53,7 +61,12 @@ class _AppLinkTextPostsState extends State<AppLinkTextPosts> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.go('/home'),
+          onPressed: () {
+            setState(() {
+              PostsData.textPostsData = null;
+            });
+            context.go('/home');
+          },
           icon: const Icon(Icons.home),
         ),
         title: const Text("App Link Text Posts"),
@@ -64,8 +77,10 @@ class _AppLinkTextPostsState extends State<AppLinkTextPosts> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (erro)
-              const Text('Error Post Not Found',
-                  style: TextStyle(color: Colors.red)),
+              Text(
+                'Error: $errors',
+                style: const TextStyle(color: Colors.red),
+              ),
             if (!show && !erro) const CircularProgressIndicator(),
             if (show)
               Container(

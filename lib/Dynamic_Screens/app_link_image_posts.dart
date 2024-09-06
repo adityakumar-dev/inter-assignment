@@ -52,7 +52,12 @@ class _AppLinkImagePostsState extends State<AppLinkImagePosts> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.go('/home'),
+          onPressed: () {
+            setState(() {
+              PostsData.imagePostsData = null;
+            });
+            context.go('/home');
+          },
           icon: const Icon(Icons.home),
         ),
         title: const Text("App Link Image Posts"),
